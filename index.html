@@ -2,13 +2,1865 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Shushi Bowl Riga</title>
+    <style>
+      /* Base styles */
+      :root {
+        --gold: #d4af37;
+        --deep-red: #8b0000;
+        --rich-black: #121212;
+        --jade: #00a86b;
+        --cherry-blossom: #f06292;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--rich-black);
+        color: white;
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--gold);
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #f0c14b;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #8b0000, #5a0000);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--deep-red);
+        box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: rgba(212, 175, 55, 0.1);
+        color: var(--gold);
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(212, 175, 55, 0.2);
+      }
+
+      .text-gold {
+        color: var(--gold);
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+
+      .mb-8 {
+        margin-bottom: 2rem;
+      }
+
+      .mt-4 {
+        margin-top: 1rem;
+      }
+
+      .mt-8 {
+        margin-top: 2rem;
+      }
+
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      .py-8 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      .py-16 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .grid-cols-1 {
+        grid-template-columns: 1fr;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .justify-center {
+        justify-content: center;
+      }
+
+      .gap-2 {
+        gap: 0.5rem;
+      }
+
+      .gap-4 {
+        gap: 1rem;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .absolute {
+        position: absolute;
+      }
+
+      .inset-0 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .z-10 {
+        z-index: 10;
+      }
+
+      .z-20 {
+        z-index: 20;
+      }
+
+      .overflow-hidden {
+        overflow: hidden;
+      }
+
+      .rounded-full {
+        border-radius: 9999px;
+      }
+
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+
+      .border {
+        border: 1px solid;
+      }
+
+      .border-gold {
+        border-color: var(--gold);
+      }
+
+      .border-t {
+        border-top: 1px solid;
+      }
+
+      .border-b {
+        border-bottom: 1px solid;
+      }
+
+      .opacity-70 {
+        opacity: 0.7;
+      }
+
+      .opacity-30 {
+        opacity: 0.3;
+      }
+
+      .opacity-20 {
+        opacity: 0.2;
+      }
+
+      .opacity-10 {
+        opacity: 0.1;
+      }
+
+      .shadow-lg {
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Header styles */
+      header {
+        background-color: var(--rich-black);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        height: 80px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo {
+        height: 48px;
+        margin-right: 8px;
+      }
+
+      .nav-list {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+      }
+
+      .nav-link {
+        color: var(--gold);
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .nav-link:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, var(--gold), #f0c14b);
+        transition: width 0.3s;
+      }
+
+      .nav-link:hover:after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--gold);
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      /* Hero section styles */
+      .hero {
+        position: relative;
+        height: 700px;
+        background-color: var(--rich-black);
+        overflow: hidden;
+      }
+
+      .hero-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.7;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          var(--rich-black),
+          rgba(18, 18, 18, 0.8),
+          transparent
+        );
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 20;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 600px;
+        padding: 0 2rem;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--gold), #f0c14b);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shimmer 8s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .hero-border {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background-color: var(--gold);
+        opacity: 0.8;
+        background-image: url("https://www.transparenttextures.com/patterns/japanese-pattern.png");
+      }
+
+      /* Featured dishes styles */
+      .featured-dishes {
+        position: relative;
+        padding: 4rem 0;
+        background-color: var(--rich-black);
+        overflow: hidden;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(135deg, var(--gold), #f0c14b);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .section-subtitle {
+        color: #d1d1d1;
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5rem 0;
+      }
+
+      .divider-line {
+        height: 1px;
+        width: 3rem;
+        background-color: var(--deep-red);
+      }
+
+      .divider-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background-color: var(--gold);
+        margin: 0 1rem;
+      }
+
+      .tabs {
+        display: flex;
+        max-width: 400px;
+        margin: 0 auto 2rem;
+        background-color: rgba(18, 18, 18, 0.8);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 0.75rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab.active {
+        background-color: rgba(212, 175, 55, 0.1);
+        color: var(--gold);
+        border-bottom: 2px solid var(--gold);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .dishes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        justify-items: center;
+      }
+
+      /* Dish card styles */
+      .dish-card {
+        width: 350px;
+        height: 450px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--rich-black);
+        border: 2px solid var(--gold);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .dish-card:hover {
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+      }
+
+      .dish-image-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .dish-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .dish-card:hover .dish-image {
+        transform: scale(1.05);
+      }
+
+      .dish-category {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: var(--deep-red);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+      }
+
+      .vegetarian-badge {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        background-color: var(--jade);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 9999px;
+      }
+
+      .dish-header {
+        padding: 1rem 1rem 0.5rem;
+      }
+
+      .dish-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--gold);
+        display: flex;
+        align-items: center;
+      }
+
+      .spicy-indicator {
+        color: var(--deep-red);
+        font-size: 0.875rem;
+        margin-left: 0.5rem;
+      }
+
+      .dish-content {
+        padding: 0 1rem;
+        flex-grow: 1;
+      }
+
+      .dish-description {
+        font-size: 0.875rem;
+        color: #d1d1d1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .dish-price {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--gold);
+      }
+
+      .dish-footer {
+        padding: 0.5rem 1rem 1rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+      }
+
+      .view-details-btn {
+        width: 100%;
+        background: none;
+        border: none;
+        color: var(--gold);
+        padding: 0.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .view-details-btn:hover {
+        color: #f0c14b;
+        background-color: rgba(18, 18, 18, 0.9);
+      }
+
+      /* About section styles */
+      .about-section {
+        position: relative;
+        padding: 4rem 0;
+        background-color: var(--rich-black);
+        overflow: hidden;
+      }
+
+      .about-bg-pattern {
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        overflow: hidden;
+      }
+
+      .about-card {
+        background: linear-gradient(to bottom right, #1a1a1a, #0a0a0a);
+        border: 1px solid var(--gold);
+        overflow: hidden;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        padding: 1.5rem;
+      }
+
+      .about-card-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .about-card-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+      }
+
+      .about-card-icon {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.75rem;
+        color: var(--gold);
+      }
+
+      .about-card-heading {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--gold);
+      }
+
+      .about-card-text {
+        color: #d1d1d1;
+        line-height: 1.5;
+      }
+
+      .about-separator {
+        height: 1px;
+        background-color: rgba(212, 175, 55, 0.2);
+        margin: 1.5rem 0;
+      }
+
+      .about-image {
+        aspect-ratio: 4/3;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+      }
+
+      /* Location section styles */
+      .location-section {
+        padding: 4rem 0;
+        background-color: var(--rich-black);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .location-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--gold), #f0c14b);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .location-divider {
+        width: 6rem;
+        height: 4px;
+        background-color: var(--deep-red);
+        margin: 0 auto 1rem;
+      }
+
+      .location-subtitle {
+        text-align: center;
+        color: #d1d1d1;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .location-map {
+        height: 300px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        border: 2px solid var(--gold);
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .location-info-card {
+        background-color: #1a1a1a;
+        border: 2px solid var(--gold);
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .info-icon {
+        color: var(--deep-red);
+        margin-top: 0.25rem;
+        flex-shrink: 0;
+      }
+
+      .info-content h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 0.25rem;
+      }
+
+      .info-content p {
+        color: #d1d1d1;
+      }
+
+      .info-separator {
+        height: 1px;
+        background-color: #333;
+        margin: 1.5rem 0;
+      }
+
+      /* Footer styles */
+      footer {
+        background-color: var(--rich-black);
+        color: white;
+        padding: 2rem 0;
+        border-top: 2px solid var(--gold);
+      }
+
+      .footer-title {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-text {
+        color: #d1d1d1;
+        font-size: 0.875rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-link {
+        color: #d1d1d1;
+        transition: color 0.3s ease;
+      }
+
+      .social-link:hover {
+        color: var(--gold);
+      }
+
+      .footer-separator {
+        height: 1px;
+        background-color: #333;
+        margin: 1rem 0;
+      }
+
+      .copyright {
+        text-align: center;
+        color: #666;
+        font-size: 0.75rem;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-content {
+        background-color: var(--rich-black);
+        margin: 10% auto;
+        padding: 1.5rem;
+        border: 2px solid var(--gold);
+        width: 90%;
+        max-width: 800px;
+        border-radius: 0.5rem;
+        position: relative;
+      }
+
+      .close-modal {
+        color: var(--gold);
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .modal-subtitle {
+        color: #d1d1d1;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .modal-image {
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      .modal-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-section {
+        margin-bottom: 1rem;
+      }
+
+      .modal-section-title {
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .ingredients-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .ingredient-tag {
+        background-color: #333;
+        color: #d1d1d1;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 9999px;
+      }
+
+      .spicy-level {
+        display: flex;
+      }
+
+      .spicy-icon {
+        color: var(--deep-red);
+      }
+
+      .spicy-icon.inactive {
+        color: #333;
+      }
+
+      .modal-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--gold);
+        margin-top: 1.5rem;
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+      }
+
+      /* Order dialog styles */
+      .order-dialog {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .order-dialog-content {
+        background-color: var(--rich-black);
+        margin: 15% auto;
+        padding: 2rem;
+        border: 2px solid var(--gold);
+        width: 90%;
+        max-width: 400px;
+        border-radius: 0.5rem;
+      }
+
+      .order-dialog-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .delivery-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .delivery-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .wolt-option {
+        background-color: #00c2e8;
+        color: white;
+      }
+
+      .wolt-option:hover {
+        background-color: #00a8cc;
+        box-shadow:
+          0 10px 15px -3px rgba(0, 194, 232, 0.2),
+          0 4px 6px -2px rgba(0, 194, 232, 0.05);
+      }
+
+      .bolt-option {
+        background-color: #34d186;
+        color: white;
+      }
+
+      .bolt-option:hover {
+        background-color: #2bb974;
+        box-shadow:
+          0 10px 15px -3px rgba(52, 209, 134, 0.2),
+          0 4px 6px -2px rgba(52, 209, 134, 0.05);
+      }
+
+      .delivery-option-logo {
+        height: 2rem;
+      }
+
+      .delivery-option-text {
+        font-weight: bold;
+        font-size: 1.125rem;
+      }
+
+      .order-dialog-footer {
+        text-align: center;
+        color: #666;
+        font-size: 0.875rem;
+        margin-top: 1rem;
+      }
+
+      /* Responsive styles */
+      @media (min-width: 768px) {
+        .grid-cols-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .modal-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .grid-cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .nav-list {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .dish-card {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script src="https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js"></script>
+    <!-- Header -->
+    <header>
+      <div class="container flex justify-between items-center">
+        <div class="flex items-center">
+          <a href="#">
+            <img
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=shushi-bowl-riga"
+              alt="Shushi Bowl Riga"
+              class="logo"
+            />
+          </a>
+          <a href="#">
+            <h1 class="text-gold">Shushi Bowl Riga</h1>
+          </a>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li><a href="#menu" class="nav-link">Menu</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#location" class="nav-link">Location</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button class="mobile-menu-btn">☰</button>
+          <button class="btn btn-primary order-now-btn">Order Now</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <img
+        src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80"
+        alt="Premium Sushi"
+        class="hero-image"
+      />
+      <div class="hero-overlay"></div>
+
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Shushi Bowl Riga</h1>
+          <p class="hero-subtitle">
+            Experience authentic Japanese and Chinese cuisine with our premium
+            sushi rolls and ramen bowls
+          </p>
+          <button class="btn btn-primary order-now-btn">Order Now</button>
+        </div>
+      </div>
+
+      <div class="hero-border"></div>
+    </section>
+
+    <!-- Featured Dishes Section -->
+    <section class="featured-dishes" id="menu">
+      <div class="container">
+        <div class="text-center mb-8">
+          <h2 class="section-title">Our Signature Dishes</h2>
+          <p class="section-subtitle">
+            Discover our chef's carefully crafted selection of authentic Asian
+            cuisine
+          </p>
+          <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-dot"></div>
+            <div class="divider-line"></div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" data-tab="sushi">Sushi Rolls</div>
+          <div class="tab" data-tab="ramen">Ramen Bowls</div>
+        </div>
+
+        <div class="tab-content active" id="sushi-content">
+          <div class="dishes-grid">
+            <!-- Sushi Dish Card 1 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Dragon Roll"
+                  class="dish-image"
+                />
+                <div class="dish-category">SUSHI</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">
+                  Dragon Roll
+                  <span class="spicy-indicator">🌶️🌶️</span>
+                </h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Premium sushi roll with fresh salmon, avocado, and special
+                  spicy sauce, topped with thinly sliced cucumber.
+                </p>
+                <p class="dish-price">€12.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sushi Dish Card 2 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Rainbow Roll"
+                  class="dish-image"
+                />
+                <div class="dish-category">SUSHI</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">Rainbow Roll</h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Colorful sushi roll featuring a variety of fresh fish,
+                  avocado, and cucumber, artfully arranged for a visual feast.
+                </p>
+                <p class="dish-price">€14.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sushi Dish Card 3 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Spicy Tuna Roll"
+                  class="dish-image"
+                />
+                <div class="dish-category">SUSHI</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">
+                  Spicy Tuna Roll
+                  <span class="spicy-indicator">🌶️🌶️🌶️</span>
+                </h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Bold and flavorful roll with spicy tuna, cucumber, and a touch
+                  of sriracha mayo for the perfect kick.
+                </p>
+                <p class="dish-price">€11.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="ramen-content">
+          <div class="dishes-grid">
+            <!-- Ramen Dish Card 1 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1614563637806-1d0e645e0940?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Tonkotsu Ramen"
+                  class="dish-image"
+                />
+                <div class="dish-category">RAMEN</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">Tonkotsu Ramen</h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Rich pork bone broth simmered for 24 hours, served with tender
+                  chashu pork, soft-boiled egg, and fresh noodles.
+                </p>
+                <p class="dish-price">€15.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Ramen Dish Card 2 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1591814468924-caf88d1232e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Spicy Miso Ramen"
+                  class="dish-image"
+                />
+                <div class="dish-category">RAMEN</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">
+                  Spicy Miso Ramen
+                  <span class="spicy-indicator">🌶️🌶️🌶️</span>
+                </h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Hearty miso-based broth with a spicy kick, topped with ground
+                  pork, corn, bean sprouts, and a seasoned egg.
+                </p>
+                <p class="dish-price">€14.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Ramen Dish Card 3 -->
+            <div class="dish-card">
+              <div class="dish-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1626804475297-41608ea09aeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                  alt="Vegetable Ramen"
+                  class="dish-image"
+                />
+                <div class="dish-category">RAMEN</div>
+                <div class="vegetarian-badge">Vegetarian</div>
+              </div>
+
+              <div class="dish-header">
+                <h3 class="dish-title">Vegetable Ramen</h3>
+              </div>
+
+              <div class="dish-content">
+                <p class="dish-description">
+                  Light and flavorful vegetable broth with seasonal vegetables,
+                  tofu, and perfectly cooked ramen noodles.
+                </p>
+                <p class="dish-price">€13.99</p>
+              </div>
+
+              <div class="dish-footer">
+                <button class="view-details-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                  <span>View Details</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <a href="#" class="btn btn-secondary">
+            <span>View Full Menu</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ml-2"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="about-bg-pattern">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <pattern
+            id="bamboo-pattern"
+            patternUnits="userSpaceOnUse"
+            width="100"
+            height="100"
+            patternTransform="rotate(45)"
+          >
+            <rect
+              width="10"
+              height="50"
+              x="20"
+              fill="currentColor"
+              opacity="0.3"
+            />
+            <rect
+              width="8"
+              height="50"
+              x="21"
+              fill="currentColor"
+              opacity="0.2"
+            />
+            <circle cx="25" cy="10" r="2" fill="currentColor" opacity="0.4" />
+            <circle cx="25" cy="20" r="2" fill="currentColor" opacity="0.4" />
+            <circle cx="25" cy="30" r="2" fill="currentColor" opacity="0.4" />
+            <circle cx="25" cy="40" r="2" fill="currentColor" opacity="0.4" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#bamboo-pattern)" />
+        </svg>
+      </div>
+
+      <div class="container">
+        <div class="text-center mb-8">
+          <h2 class="section-title">About Shushi Bowl Riga</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="about-card">
+              <div class="about-card-section">
+                <div class="about-card-title">
+                  <div class="about-card-icon">
+                    <svg viewBox="0 0 100 100">
+                      <path
+                        d="M50,0 C77.6,0 100,22.4 100,50 C100,77.6 77.6,100 50,100 C22.4,100 0,77.6 0,50 C0,22.4 22.4,0 50,0 Z M50,20 C33.4,20 20,33.4 20,50 C20,66.6 33.4,80 50,80 C66.6,80 80,66.6 80,50 C80,33.4 66.6,20 50,20 Z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 class="about-card-heading">Our Story</h3>
+                </div>
+                <p class="about-card-text">
+                  Founded in 2018, Shushi Bowl Riga began as a small family
+                  restaurant with a passion for authentic Asian cuisine. Our
+                  head chef, Master Tanaka, trained for over 15 years in Tokyo
+                  before bringing his expertise to Riga. What started as an
+                  intimate dining experience has grown into one of the city's
+                  most beloved culinary destinations.
+                </p>
+              </div>
+
+              <div class="about-separator"></div>
+
+              <div class="about-card-section">
+                <div class="about-card-title">
+                  <div class="about-card-icon">
+                    <svg viewBox="0 0 100 100">
+                      <path
+                        d="M20,0 L80,0 L100,20 L100,80 L80,100 L20,100 L0,80 L0,20 L20,0 Z M30,10 L70,10 L90,30 L90,70 L70,90 L30,90 L10,70 L10,30 L30,10 Z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 class="about-card-heading">Our Philosophy</h3>
+                </div>
+                <p class="about-card-text">
+                  At Shushi Bowl Riga, we believe in honoring traditional
+                  Japanese and Chinese culinary techniques while incorporating
+                  the freshest local ingredients. Every dish is crafted with
+                  precision, respect, and artistic presentation. We are
+                  committed to creating an authentic dining experience that
+                  transports our guests to the heart of Asia.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-image">
+            <!-- Placeholder for about image -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section" id="location">
+      <div class="container">
+        <h2 class="location-title">Visit Us</h2>
+        <div class="location-divider"></div>
+        <p class="location-subtitle">
+          Experience authentic Asian cuisine in the heart of Riga. We're
+          conveniently located and ready to serve you.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="location-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2175.3192244361125!2d24.1051723!3d56.9495798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eecfd7a81eec83%3A0xf00c8c5f439dc210!2zQnLEq3bEq2JhcyBpZWxhLCBSxKtnYSwgTGF0dmlh!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div class="location-info-card">
+            <div class="info-item">
+              <div class="info-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                  ></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="info-content">
+                <h3>Address</h3>
+                <p>Brīvības iela 123, Rīga, LV-1001, Latvia</p>
+              </div>
+            </div>
+
+            <div class="info-separator"></div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="info-content">
+                <h3>Phone</h3>
+                <p>+371 12345678</p>
+              </div>
+            </div>
+
+            <div class="info-separator"></div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="info-content">
+                <h3>Business Hours</h3>
+                <p>Mon-Fri: 11:00-22:00, Sat-Sun: 12:00-23:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <h3 class="footer-title">Shushi Bowl Riga</h3>
+            <p class="footer-text">Brīvības iela 123, Riga, LV-1001</p>
+            <p class="footer-text">+371 12345678</p>
+          </div>
+
+          <div class="mb-4 md:mb-0 text-center md:text-left">
+            <h3 class="footer-title">Hours</h3>
+            <p class="footer-text">
+              Mon-Fri: 11:00-22:00, Sat-Sun: 12:00-23:00
+            </p>
+          </div>
+
+          <div class="text-center md:text-right">
+            <h3 class="footer-title">Connect</h3>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/shushibowlriga"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="https://instagram.com/shushibowlriga"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path
+                    d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  ></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a
+                href="https://twitter.com/shushibowlriga"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-separator"></div>
+
+        <div class="copyright">
+          <p>© 2023 Shushi Bowl Riga. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Dish Details Modal -->
+    <div class="modal" id="dish-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+
+        <h2 class="modal-title" id="modal-dish-title">Dragon Roll</h2>
+        <p class="modal-subtitle" id="modal-dish-category">Sushi</p>
+
+        <div class="modal-grid">
+          <div class="modal-image">
+            <img
+              id="modal-dish-image"
+              src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+              alt="Dragon Roll"
+            />
+          </div>
+
+          <div>
+            <div class="modal-section">
+              <h4 class="modal-section-title">Description</h4>
+              <p id="modal-dish-description">
+                Premium sushi roll with fresh salmon, avocado, and special spicy
+                sauce, topped with thinly sliced cucumber.
+              </p>
+            </div>
+
+            <div class="modal-section">
+              <h4 class="modal-section-title">Ingredients</h4>
+              <div class="ingredients-list" id="modal-dish-ingredients">
+                <span class="ingredient-tag">Salmon</span>
+                <span class="ingredient-tag">Avocado</span>
+                <span class="ingredient-tag">Cucumber</span>
+                <span class="ingredient-tag">Spicy Mayo</span>
+                <span class="ingredient-tag">Nori</span>
+                <span class="ingredient-tag">Sushi Rice</span>
+              </div>
+            </div>
+
+            <div class="modal-section" id="modal-spicy-section">
+              <h4 class="modal-section-title">Spicy Level</h4>
+              <div class="spicy-level" id="modal-spicy-level">
+                <span class="spicy-icon">🌶️</span>
+                <span class="spicy-icon">🌶️</span>
+                <span class="spicy-icon inactive">🌶️</span>
+                <span class="spicy-icon inactive">🌶️</span>
+                <span class="spicy-icon inactive">🌶️</span>
+              </div>
+            </div>
+
+            <div class="modal-price" id="modal-dish-price">€12.99</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary order-now-btn">Order Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Dialog -->
+    <div class="order-dialog" id="order-dialog">
+      <div class="order-dialog-content">
+        <h2 class="order-dialog-title">Order with</h2>
+
+        <div class="delivery-options">
+          <a
+            href="https://wolt.com/en/lva/riga/restaurant/shushi-bowl-riga"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="delivery-option wolt-option"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Wolt_logo.svg"
+              alt="Wolt"
+              class="delivery-option-logo"
+            />
+            <span class="delivery-option-text">Order with Wolt</span>
+          </a>
+
+          <a
+            href="https://bolt.eu/en/food/restaurants/riga/shushi-bowl-riga"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="delivery-option bolt-option"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/28/Bolt_app_logo.svg"
+              alt="Bolt"
+              class="delivery-option-logo"
+            />
+            <span class="delivery-option-text">Order with Bolt</span>
+          </a>
+        </div>
+
+        <div class="order-dialog-footer">
+          <p>Choose your preferred delivery service</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Tab switching functionality
+      const tabs = document.querySelectorAll(".tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const tabId = tab.getAttribute("data-tab");
+
+          // Remove active class from all tabs and contents
+          tabs.forEach((t) => t.classList.remove("active"));
+          tabContents.forEach((c) => c.classList.remove("active"));
+
+          // Add active class to clicked tab and corresponding content
+          tab.classList.add("active");
+          document.getElementById(`${tabId}-content`).classList.add("active");
+        });
+      });
+
+      // Dish details modal functionality
+      const modal = document.getElementById("dish-modal");
+      const viewDetailsBtns = document.querySelectorAll(".view-details-btn");
+      const closeModal = document.querySelector(".close-modal");
+
+      viewDetailsBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          modal.style.display = "block";
+        });
+      });
+
+      closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      // Order dialog functionality
+      const orderDialog = document.getElementById("order-dialog");
+      const orderNowBtns = document.querySelectorAll(".order-now-btn");
+
+      orderNowBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          orderDialog.style.display = "block";
+        });
+      });
+
+      window.addEventListener("click", (event) => {
+        if (event.target === orderDialog) {
+          orderDialog.style.display = "none";
+        }
+      });
+
+      // Mobile menu functionality
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navList = document.querySelector(".nav-list");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navList.style.display =
+          navList.style.display === "flex" ? "none" : "flex";
+      });
+
+      // Update copyright year
+      document.querySelector(".copyright p").textContent =
+        `© ${new Date().getFullYear()} Shushi Bowl Riga. All rights reserved.`;
+    </script>
   </body>
 </html>
